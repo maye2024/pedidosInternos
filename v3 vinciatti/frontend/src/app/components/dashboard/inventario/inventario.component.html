@@ -1,0 +1,97 @@
+
+<app-navbar></app-navbar>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Vinciatti</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/product">Productos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/Orden">Pedidos</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/orders">Lista de Pedidos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/puntos">Puntos de venta</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/inventario">Inventario</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <br>
+  <div class="container">
+    <h2>Inventario</h2>
+    <form (ngSubmit)="registrarInventario()">
+      <div class="form-group">
+        <label>Descripción:</label>
+        <input class="form-control" type="text" [(ngModel)]="nuevoInventario.description" name="description" required>
+      </div>
+      <div class="form-group">
+        <label>Producto:</label>
+        <select [(ngModel)]="nuevoInventario.productoId" name="productoId" required class="form-control" (input)="limpiarError()">
+          <option *ngFor="let producto of listaProductos" [value]="producto.id">{{ producto.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Entrada:</label>
+        <input class="form-control" type="number" [(ngModel)]="nuevoInventario.entrada" name="entrada" (input)="updateSaldo()" required>
+      </div>
+      <div class="form-group">
+        <label>Salida:</label>
+        <input class="form-control" type="number" [(ngModel)]="nuevoInventario.salida" name="salida" (input)="updateSaldo()" required>
+      </div><br>
+      <div class="form-group">
+        <label>Saldo:</label>
+        <input class="form-control" type="number" [(ngModel)]="nuevoInventario.saldo" name="saldo" readonly>
+        <div *ngIf="(nuevoInventario.saldo ?? 0) < 0" class="alert alert-warning">
+          ¡Advertencia! El saldo es negativo.
+        </div>
+      </div><br>
+      <button class="btn btn-primary" type="submit" [disabled]="productoYaRegistrado()">Registrar</button>
+      <!--Mostrar mensaje de error si existe-->
+      <div *ngIf="errorMessage" class="alert alert-danger mt-2">
+        {{errorMessage}}
+      </div>
+    </form>
+  
+    <div *ngIf="haySaldoNegativo()" class="alert alert-warning">
+      ¡Reabastecimiento urgente!
+    </div>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Descripción</th>
+          <th>Producto</th>
+          <th>Entrada</th>
+          <th>Salida</th>
+          <th>Saldo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listInventario" [ngClass]="{'fila-saldo-negativo': (item.saldo ?? 0) < 0}">
+          <th scope="row">{{item.id}}</th>
+          <td>{{item.description}}</td>
+          <td>{{item.Product?.name}}</td>
+          <td>{{item.entrada}}</td>
+          <td>{{item.salida}}</td>
+          <td [ngClass]="{'saldo-negativo': (item.saldo ?? 0) < 0}">{{item.saldo}}</td>
+          <td>
+            <button class="btn btn-danger" (click)="editarInventario(item)">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

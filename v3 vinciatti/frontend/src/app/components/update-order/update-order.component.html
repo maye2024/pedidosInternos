@@ -1,0 +1,91 @@
+
+<app-navbar></app-navbar>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Vinciatti</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/product">Productos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/Orden">Pedidos</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/orders">Lista de Pedidos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/puntos">Puntos de venta</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/inventario">Inventario</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <br>
+<div class="container">
+    <div *ngIf="!validateOrderDate()" class="alert alert-danger">
+      No se pueden crear pedidos después del jueves a la 1:30 PM.
+    </div>
+  
+    <div class="container">
+        <h2>Crear Pedido</h2>
+        <form (submit)="createOrder()">
+          <div class="form-group">
+            <label>Descripción:</label>
+            <input type="text" class="form-control" [(ngModel)]="order.description" name="description" required>
+          </div>
+      
+          <div class="form-group">
+            <label>Fecha de Pedido:</label>
+            <input type="datetime-local" class="form-control" [value]="order.fechaPedido | date:'yyyy-MM-ddTHH:mm'" name="fechaPedido" disabled>
+          </div>
+      
+          <div class="form-group">
+            <label>Fecha de Entrega:</label>
+            <input type="date" class="form-control" [(ngModel)]="order.fechaEntrega" name="fechaEntrega" required>
+          </div>
+      
+          <div class="form-group">
+            <label>Producto:</label>
+            <select class="form-control" [(ngModel)]="order.productoId" name="productoId" required>
+              <option *ngFor="let product of products" [value]="product.id">{{ product.name }}</option>
+            </select>
+          </div>
+      
+          <div class="form-group">
+            <label>Punto de Venta:</label>
+            <select class="form-control" [(ngModel)]="order.ventaId" name="ventaId" required>
+              <option *ngFor="let punto of puntos" [value]="punto.id">{{ punto.name }}</option>
+            </select>
+          </div>
+      
+          <div class="form-group">
+            <label>Usuario:</label>
+            <select class="form-control" [(ngModel)]="order.usuarioId" name="usuarioId" required>
+              <option *ngFor="let user of users" [value]="user.credential">{{ user.name }} {{ user.lastname }}</option>
+            </select>
+          </div>
+      
+          <div class="form-group">
+            <label>Estado:</label>
+            <select class="form-control" [(ngModel)]="order.estado" name="estado" required>
+              <option value="pendiente">Pendiente</option>
+              <option value="entregado">Entregado</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Cantidad:</label>
+            <input type="text" class="form-control" [(ngModel)]="order.cantidad" name="cantidad" required>
+          </div><br>
+      
+          <button type="submit" class="btn btn-primary">Crear Pedido</button>
+        </form>
+    </div>
+</div>

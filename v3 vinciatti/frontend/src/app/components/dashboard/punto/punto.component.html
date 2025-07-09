@@ -1,0 +1,78 @@
+<!-- Formulario para agregar nuevos puntos de venta -->
+
+<app-navbar></app-navbar>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Vinciatti</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/product">Productos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/Orden">Pedidos</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/orders">Lista de Pedidos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/puntos">Puntos de venta</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/inventario">Inventario</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <br>
+ <div class="container">
+    <h2>Puntos de venta</h2>
+        <form (submit)="registrarPunto()">
+                <div class="form-group">
+                    <label for="name">Nombre del punto de venta:</label>
+                    <input type="text" class="form-control" id="name" [(ngModel)]="newPunto.name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Dirección:</label>
+                    <input type="text" class="form-control" id="direccion" [(ngModel)]="newPunto.direccion" name="direccion" required>
+                </div>
+                <div class="form-group">
+                    <label for="ciudad">Ciudad:</label>
+                    <input type="text" class="form-control" id="ciudad" [(ngModel)]="newPunto.ciudad" name="ciudad" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input type="text" class="form-control" id="telefono" [(ngModel)]="newPunto.telefono" name="telefono" required>
+                </div><br>
+                <button type="submit" class="btn btn-primary">Guardar Punto de Venta</button>
+        </form><br>
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre del punto de venta</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Ciudad</th>
+                <th scope="col">Teléfono</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listPuntos">
+                <th scope="row">{{item.id}}</th>
+                <td>{{item.name}}</td>
+                <td>{{item.direccion}}</td>
+                <td>{{item.ciudad}}</td>
+                <td>{{item.telefono}}</td>
+                <td>
+                  <button class="btn btn-primary" (click)="editarPunto(item)">Editar</button>
+                  <button *ngIf="item.id !== undefined" class="btn btn-danger" (click)="eliminarPunto(item.id)">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>

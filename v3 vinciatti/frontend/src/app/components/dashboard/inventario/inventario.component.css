@@ -1,0 +1,27 @@
+.inventario-container {
+    padding: 20px;
+  }
+
+  .saldo-negativo {
+    color: red;
+  }
+
+  .fila-saldo-negativo {
+    background-color: #ffe6e6; /* Color rojo claro de fondo */
+  }
+  
+  /* table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+   */

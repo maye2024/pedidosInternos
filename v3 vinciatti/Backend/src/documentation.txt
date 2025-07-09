@@ -1,0 +1,42 @@
+NodeJS para el backend
+
+Instalación de dependencias necesarias para el backend
+
+npm init -y
+-npm install express bcrypt cors dotenv jsonwebtoken sequelize mysql2
+-npm install typescript --save-dev
+-npm install nodemon --save-dev
+npm i --save-dev @types/bcrypt
+npx tsc --init
+npm i --save-dev @types/jsonwebtoken
+
+npx tsc después de crear la carpeta src y un archivo index con un console.log
+npx nodemon dist/index.js
+
+npm i --save-dev @types/express
+npm i --save-dev @types/cors
+npm run typescript
+npm run dev //inicar sesión en el backend
+
+frontend
+ng new frontend --routing
+npm install bootstrap
+
+copiar esto en angular.json en styles "node_modules/bootstrap/dist/css/bootstrap.min.css" y en scripts
+"node_modules/bootstrap/dist/js/bootstrap.min.js" "node_modules/ngx-toastr/toastr.css"
+
+ng g c components/login --skip-tests
+npm install ngx-toastr --save
+npm install @angular/animations --save
+ng g environments
+ng g s services/user
+ng g s services/errors
+npm install jwt-decode
+ng g s services/product
+ng g interceptor utils/Token
+ng g interceptor utils/addToken
+ng g service services/guard
+ng g guard utils/token --guardType CanDeactivate --functional //este no
+ng g guard utils/guard --guardType CanDeactivate --functional
+
+ng serve -o //iniciar sesión en el frontend

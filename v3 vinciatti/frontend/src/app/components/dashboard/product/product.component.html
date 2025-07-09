@@ -1,0 +1,68 @@
+
+
+<app-navbar></app-navbar>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Vinciatti</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/product">Productos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/Orden">Pedidos</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/orders">Lista de Pedidos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/puntos">Puntos de venta</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/inventario">Inventario</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <br>
+<div class="container">
+  <h2>Productos</h2>
+  <form (submit)="registrarProducto()">
+    <div class="form-group">
+        <label for="name">Nombre del producto:</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="listproduct.name" name="name" required>
+    </div>
+    <div class="form-group">
+        <label for="description">Descripción:</label>
+        <input type="text" class="form-control" id="description" [(ngModel)]="listproduct.description" name="description" required>
+    </div><br>
+    <button type="submit" class="btn btn-primary">Guardar Producto</button>
+  </form><br>
+
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre del producto</th>
+        <th scope="col">Descripción</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listProducts">
+        <th scope="row">{{item.id}}</th>
+        <td>{{item.name}}</td>
+        <td>{{item.description}}</td>
+        <td>
+          <button class="btn btn-primary" (click)="editarProduct(item)">Editar</button>
+          <button *ngIf="item.id !== undefined" class="btn btn-danger" (click)="eliminarProduct(item.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
